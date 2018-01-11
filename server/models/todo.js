@@ -14,17 +14,11 @@ var Todo = mongoose.model('Todo', {
     completedAt: {
         type: Number,
         default: null
+    },
+    _creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 });
 
 module.exports = {Todo};
-
-// var todo = new Todo({
-//     text: req.body.text
-// });
-
-// todo.save().then((doc) => {
-//     res.send(doc);
-// }, (error) => {
-//     res.send(error);
-// });
