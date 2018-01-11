@@ -53,6 +53,16 @@ userSchema.methods.generateAuthToken = function () {
     });
 };
 
+userSchema.methods.removeToken = function (token) {
+    var user = this;
+
+    return user.update({
+        $pull: {
+            tokens: {token}
+        }
+    });
+};
+
 userSchema.statics.findByToken = function (token) {
     var user = this;
     var decoded;
@@ -61,9 +71,6 @@ userSchema.statics.findByToken = function (token) {
         decoded = jwt.verify(token, 'abc123');
     } catch (error) {
         return Promise.reject();
-        // return new Promise((resolve, reject) => {
-        //     reject();
-        // });
     }
 
     return user.findOne({
